@@ -11,9 +11,7 @@ sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
 
 
 from app.database import Base
-from app.hotels.models import Hotels, Rooms
-from app.bookings.models import Bookings
-from app.users.models import Users
+from app.movies.models.data_models import Movie
 
 from app.config import settings
 
