@@ -2,75 +2,46 @@ from typing import Any, Dict, List, Optional, Union
 from sqlalchemy.ext.hybrid import hybrid_property
 
 from fastapi import Query
-from pydantic import BaseModel, Field, root_validator, validator
+from pydantic import BaseModel, validator
 
-JSON = Union[Dict[str, 'JSON'], List['JSON'], str, int, float, bool, None]
-
-
-class Rating(BaseModel):
-    kp: float = 0.0
-    imdb: float = 0.0
-    filmCritics: float = 0.0
-    russianFilmCritics: float = 0.0
-    await_: float = 0.0  # Используем другое имя поля
-
-    class Config:
-        fields = {
-            'await_': 'await'  # Маппинг для сериализации/десериализации
-        }
-
-
-class FilterArgsPy(BaseModel):
-
-    kp_id: Optional[int] = None
-    name: Union[str, None] = None
-    alternativeName: Union[str, None] = None
-    enName: Union[str, None] = None
-    type: Union[str, None] = None
-    typeNumber: Union[int, None] = None
-    year: Union[int, None] = None
-    description: Union[str, None] = None
-    shortDescription: Union[str, None] = None
-    status: Union[str, None] = None
-
-    rating: Union[Rating] = None
-    # votes: Optional[JSON] = None,
-
-    # movieLength: Optional[int] = None,
-    # ageRating: Optional[int] = None,
-
-    # poster: Optional[JSON] = None,
-    # genres: Optional[JSON] = None,
-    # countries: Optional[JSON] = None,
-    # persons: Optional[JSON] = None,
-    # budget: Optional[JSON] = None,
-    # fees: Optional[JSON] = None,
-    # premier: Optional[JSON] = None,
-    # seq_and_preq: Optional[JSON] = None,
-    # watchability: Optional[JSON] = None,
-
-    # top10: Optional[int] = None,
-    # top250: Optional[int] = None,
-    # tickets_on_sale: Optional[int] = None,
-    # lists: Optional[list] = None,
-   
-
-    @root_validator(pre=True)
-    def parse_nulls(cls, values: Dict[str, Any]):
-        for field in ["name", "alternativeName", "enName", "type", "typeNumber", "rating"]:
-            if values.get(field) == "null":
-                values[field] = None
-            
-        return values
-    
 
 # Pydantic модель для фильтрации
 class MovieFilterRequest(BaseModel):
-    limit: int = Query(10, ge=1, le=100)
+    limit: int = Query(10, ge=1, le=251)
+
+    kp_id: Optional[int] = Query(None, alias="kp_id")
+    name: Optional[str] = Query(None, alias="name")
+    alt_name: Optional[str] = Query(None, alias="alt_name")
+    en_name: Optional[str] = Query(None, alias="en_name")
+    type: Optional[str] = Query(None, alias="movie_type")
+    type_number: Optional[int] = Query(None, alias="type_number")
+    year: Optional[int] = Query(None, alias="year")
+    description: Optional[str] = Query(None, alias="description")
+    short_description: Optional[str] = Query(None, alias="short_description")
+    status: Optional[str] = Query(None, alias="status")
+    # json
     rating_imdb: Optional[float] = Query(None, alias="rating.imdb")
     rating_kp: Optional[float] = Query(None, alias="rating.kp")
-    status: Optional[str] = Query(None, alias="status")
-    # Добавьте другие нужные поля
+    votes_kp: Optional[float] = Query(None, alias="votes.kp")
+    votes_imdb: Optional[float] = Query(None, alias="votes.imdb")
+
+    movie_length: Optional[int] = Query(None, alias="movie_length")
+    age_rating: Optional[int] = Query(None, alias="age_rating")
+    # json
+    poster_url: Optional[str] = Query(None, alias="rating.url")
+    poster_preview_url: Optional[str] = Query(None, alias="rating.previewUrl")
+    genres_name: Optional[str] = Query(None, alias="genres.name")
+    countries_name: Optional[str] = Query(None, alias="countries.name")
+    persons: Optional[str] = Query(None, alias="persons")
+    budget_currency: Optional[str] = Query(None, alias="budget.currency")
+    budget_value: Optional[int] = Query(None, alias="budget.value")
+    # fees_world_value: Optional[str] = Query(None, alias="fees.world.value")
+    premiere_world: Optional[str] = Query(None, alias="premier.world")
+    seq_and_preq: Optional[str] = Query(None, alias="sequelsAndPrequels")
+    top10: Optional[int] = Query(None, alias="top10")
+    top250: Optional[int] = Query(None, alias="top250")
+    # lists: Optional[str] = Query(None, alias="lists")
+   
 
     class Config:
         allow_population_by_field_name = True
