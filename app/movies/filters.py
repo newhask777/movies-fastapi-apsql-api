@@ -17,15 +17,11 @@ class MovieFilter:
         async with async_session_maker() as session:
             try:
                 query = select(Movie)
-                
-
                 filters = []
                 json_filters = []
 
                 json_filters = build_json_filters(filter_params, Movie)
-
                 filters = build_filters(filter_params, Movie, filters)
-                
                 
                 if json_filters:
                     filters.append(and_(*json_filters))
@@ -33,14 +29,10 @@ class MovieFilter:
                 if filters:
                     query = query.where(and_(*filters))
                 
-
                 query = query.limit(filter_params.limit)
-                
-
                 result = await session.execute(query)
                 movies = result.scalars().all()
                 
-
                 return MovieListResponse(
                     results=[
                         MovieResponse(
