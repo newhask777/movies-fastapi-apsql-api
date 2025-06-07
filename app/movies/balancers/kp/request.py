@@ -6,14 +6,17 @@ from model import Movie
 
 db = SessionLocal() 
 
-year = 2025
-movie_count = 0
+year = 2020
 balanser = []
-# KINOPOISK_API_KEY = "2BXP44B-HS3460R-JK4BV1F-WX08GD5" 
-# KINOPOISK_API_KEY = "5PV2AF3-NC1M1R8-MMXYPP6-HY7NN2X" 
-KINOPOISK_API_KEY = "RJFHMJ6-NCMMB18-Q9909GP-D8R7AGR"
+# KINOPOISK_API_KEY = "2BXP44B-HS3460R-JK4BV1F-WX08GD5", # exp newhaskellisp 
+# KINOPOISK_API_KEY = "5PV2AF3-NC1M1R8-MMXYPP6-HY7NN2X"# haskellisp
+KINOPOISK_API_KEY = "RJFHMJ6-NCMMB18-Q9909GP-D8R7AGR" # ivanhask369
+# KINOPOISK_API_KEY = "GDK9FDJ-Y7V4096-N4XFK29-9EX38VQ" # barakdimon  
+# KINOPOISK_API_KEY = "TSG399W-WJ7MSTM-NET4M6F-6EN5ZBA" # lehazarutel 
+# KINOPOISK_API_KEY = "4NAC79D-8YY4WEJ-MGTBHM1-AF3WMR4" # hanzfierman 
+# KINOPOISK_API_KEY = "A287HMK-ZKTMKHR-MFJQNJ8-FC6YPJS" # petermuller
 
-for i in range(1, 7):
+for i in range(188, 225):
 
     print(i)
 
@@ -32,27 +35,27 @@ for i in range(1, 7):
 
     for item in response["docs"]:
 
-        movie_count +=1
-        print(movie_count)
-        # print(item['id'])
+        # movie_count +=1
+        # print(movie_count)
+        print(item['id'])
 
-        videocdn_url = f'https://videocdn.tv/api/movies?api_token=lTf8tBnZLmO0nHTyRaSlvGI5UH1ddZ2f&kinopoisk_id={item["id"]}'
-        videocdn_request = requests.get(videocdn_url).json()
+        # videocdn_url = f'https://videocdn.tv/api/movies?api_token=lTf8tBnZLmO0nHTyRaSlvGI5UH1ddZ2f&kinopoisk_id={item["id"]}'
+        # videocdn_request = requests.get(videocdn_url).json()
 
-        # videoseed_url = f'https://api.videoseed.tv/apiv2.php?item=movie&token=d503c3e71a5c120705c9c591ef734119&kp={item["id"]}'
-        # videoseed_request = requests.get(videoseed_url).json()
+        # # videoseed_url = f'https://api.videoseed.tv/apiv2.php?item=movie&token=d503c3e71a5c120705c9c591ef734119&kp={item["id"]}'
+        # # videoseed_request = requests.get(videoseed_url).json()
 
-        # pprint.pprint(videoseed_request['data'])
-        pprint.pprint(videocdn_request)
+        # # pprint.pprint(videoseed_request['data'])
+        # pprint.pprint(videocdn_request)
         
 
-        if(videocdn_request['result'] != False):
+        # if(item):
             # print('True')
             # pprint.pprint(videoseed_request)
             # pprint.pprint(videocdn_request)
             # balanser.append(videocdn_request)
             # balanser.append(videoseed_request)
-            
+        try:  
             movie = Movie()
 
             movie.kp_id = item["id"]
@@ -113,6 +116,8 @@ for i in range(1, 7):
 
             db.add(movie)
             db.commit()
+        except:
+            continue
 
 # with open('videoseed.json', 'w', encoding='utf-') as f:
 #     json.dump(balanser, f, indent=4, ensure_ascii=False)

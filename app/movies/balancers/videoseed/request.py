@@ -85,7 +85,7 @@ async def videoseed(db=None, release_year_from: int=2025, release_year_to: int=2
         except Exception as e:
             print(f"Критическая ошибка: {str(e)}")
         finally:
-            with open('josn/movies_data.json', 'w', encoding='utf-8') as f:
+            with open('json/movies_data.json', 'w', encoding='utf-8') as f:
                 json.dump(movies_list, f, ensure_ascii=False, indent=4)
             print(f"Сохранено записей: {len(resp_data)}")
 

@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 from sqlalchemy import Boolean, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column
 from app.database import Base
@@ -38,3 +38,26 @@ class Movie(Base):
     top250: Mapped[int] = mapped_column(Integer, nullable=True)
     tickets_on_sale: Mapped[bool] = mapped_column(Boolean, nullable=True)
     lists: Mapped[Optional[Dict[str, Any]]] = mapped_column(JSONB, nullable=True)
+
+
+
+@dataclass
+class MovieVCDN(Base):
+    __tablename__ = 'videocdn'
+    
+    id: Mapped[int] = mapped_column(primary_key=True)
+    videocdn_id: Mapped[str] = mapped_column(String, nullable=True)
+    ru_title: Mapped[str] = mapped_column(String, nullable=True)
+    orig_title: Mapped[str] = mapped_column(String, nullable=True)
+    imdb_id: Mapped[str] = mapped_column(String, nullable=True)
+    kinopoisk_id: Mapped[int] = mapped_column(Integer, nullable=True)
+    created: Mapped[str] = mapped_column(String, nullable=True)
+    released: Mapped[str] = mapped_column(String, nullable=True)
+    updated: Mapped[str] = mapped_column(String, nullable=True)
+    iframe_src: Mapped[str] = mapped_column(String, nullable=True)
+    iframe: Mapped[str] = mapped_column(String, nullable=True)
+    year: Mapped[str] = mapped_column(String, nullable=True)
+    content_type: Mapped[str] = mapped_column(String, nullable=True)
+    media: Mapped[Optional[Dict[str, Any]]] = mapped_column(JSONB, nullable=True)
+    translations: Mapped[Optional[Dict[str, Any]]] = mapped_column(JSONB, nullable=True)
+    default_media_id: Mapped[str] = mapped_column(String, nullable=True)

@@ -17,10 +17,10 @@ kp_tokens = [
     # "GDK9FDJ-Y7V4096-N4XFK29-9EX38VQ", # barakdimon  
     # "TSG399W-WJ7MSTM-NET4M6F-6EN5ZBA", # lehazarutel 
     # "4NAC79D-8YY4WEJ-MGTBHM1-AF3WMR4" # hanzfierman 
-    #"A287HMK-ZKTMKHR-MFJQNJ8-FC6YPJS" # petermuller 
+    # "A287HMK-ZKTMKHR-MFJQNJ8-FC6YPJS" # petermuller 
     #"47F41BE-90GMH6S-H0A4HNH-0TTWJPA" # marekkovalskiy
-    "NZPGQMX-05S4K52-KCMZT70-SMZ5K40" # retrodrop
-    # "02NCAWE-TJM493H-GZP1DWM-9B5J7HJ" # some one
+    # "NZPGQMX-05S4K52-KCMZT70-SMZ5K40" # retrodrop
+    "02NCAWE-TJM493H-GZP1DWM-9B5J7HJ" # some one
 ]
 
 VIDEOCDN_API_KEY = "lTf8tBnZLmO0nHTyRaSlvGI5UH1ddZ2f"
@@ -130,7 +130,7 @@ async def main():
     async with httpx.AsyncClient(timeout=30) as session:
         # Получаем фильмы с Kinopoisk
         all_movies = []
-        year = 2014
+        year = 2013
         total_pages = await get_total_pages(session, 1, year) # Замените на реальное количество страниц
         # total_pages = 190
         start_page = 1

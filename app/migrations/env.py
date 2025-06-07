@@ -11,7 +11,7 @@ sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
 
 
 from app.database import Base
-from app.movies.models.data_models import Movie
+from app.movies.models.data_models import Movie, MovieVCDN
 
 from app.config import settings
 
